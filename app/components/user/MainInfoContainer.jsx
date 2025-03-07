@@ -2,23 +2,18 @@
 import React, { useState } from 'react'
 import { NoneSpan } from '../shared';
 import Image from 'next/image';
+import { getCookie, setCookie, getFullName } from '@/app/utils';
 
 export const MainInfoContainer = () => {
 
-  const getCookie = (name) => {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    if (match) {
-        return match[2]
-    }
-    return null;
-  }
-
-  const getFullName = () => {
-    const fullName = `${getCookie("first_name")} ${getCookie("last_name")}`
-    return fullName
-  }
-
+  const [dataToUpdate, setDataToUpdate] = useState({})
   const [visibleForms, setVisibleForms] = useState([])
+  const [userData, setUserData] = useState({ 
+    first_name: getCookie("first_name"),
+    last_name: getCookie("last_name"),
+    email: getCookie("email"),
+    phone_number: getCookie("phone_number")
+  })
 
   const openForm = formId => {
     setVisibleForms([...visibleForms, formId])
@@ -26,6 +21,20 @@ export const MainInfoContainer = () => {
 
   const closeForm = formId => {
     setVisibleForms(visibleForms.filter(id => id !== formId))
+  }
+
+  const updateFieldValue = (e, fieldTitle) => {
+    
+    let newValue = e.target.value
+
+    if(fieldTitle === "phone_number"){
+      newValue = e.target.value.slice(1)
+    }
+
+    setUserData(prevState => ({
+      ...prevState,
+      [fieldTitle]: newValue
+    }))
   }
 
   return (
@@ -59,7 +68,7 @@ export const MainInfoContainer = () => {
                 </label>
                 <input type="text" name="first_name" id="first_name" className="h-[45px] rounded-md bg-gray-100 
                 border border-gray-200 hover:bg-white transition-all duration-150 ease-in px-5 w-[45%]" autoComplete="false" 
-                placeholder="Введіть ваше ім'я" defaultValue={getCookie("first_name")} />
+                placeholder="Введіть ваше ім'я" value={userData.first_name} onInput={(e) => updateFieldValue(e, "first_name")} />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="font-bold text-[0.9rem]" htmlFor="last_name">
@@ -68,7 +77,7 @@ export const MainInfoContainer = () => {
                 <div className="flex flex-row items-center justify-between">
                   <input type="text" name="last_name" id="last_name" className="h-[45px] rounded-md bg-gray-100 
                   border border-gray-200 hover:bg-white transition-all duration-150 ease-in px-5 w-[45%]" 
-                  placeholder='Введіть ваше прізвище' defaultValue={getCookie("last_name")}/>
+                  placeholder='Введіть ваше прізвище' value={userData.last_name} onInput={(e) => updateFieldValue(e, "last_name")}/>
                   <div className="flex flex-row gap-3">
                     <button type="submit" className="bg-blue-900 hover:bg-blue-900/80 rounded-md py-3 text-white font-bold 
                     px-3 transition-all duration-150 ease-in">
@@ -112,7 +121,7 @@ export const MainInfoContainer = () => {
                   <div className="flex flex-row items-center justify-between">
                     <input type="email" name="email" id="email" className="h-[45px] rounded-md bg-gray-100 
                     border border-gray-200 hover:bg-white transition-all duration-150 ease-in px-5 w-[45%]"
-                    placeholder="Введіть ваш новий email" defaultValue={getCookie("email")} />
+                    placeholder="Введіть ваш новий email" value={userData.email} onChange={(e) => updateFieldValue(e, "email")} />
                   <div className="flex flex-row gap-3">
                     <button type="submit" className="bg-blue-900 hover:bg-blue-900/80 rounded-md py-3 text-white font-bold 
                     px-3 transition-all duration-150 ease-in">
@@ -155,7 +164,8 @@ export const MainInfoContainer = () => {
                 <div className="flex flex-row items-center justify-between">
                   <input type="tel" name="phone" id="phone" className="h-[45px] rounded-md bg-gray-100 
                   border border-gray-200 hover:bg-white transition-all duration-150 ease-in px-5 w-[45%] relative"
-                  placeholder="Введіть ваш новий номер телефону" defaultValue={`+${getCookie("phone_number")}`} />
+                  maxLength={13}
+                  placeholder="Введіть ваш новий номер телефону" value={"+"+userData.phone_number} onChange={(e) => updateFieldValue(e, "phone_number")} />
                   <Image src="/ukraine-small.svg" width={15} height={15} alt="ukraine" className="absolute left-[24%] cursor-pointer" />
                   <div className="flex flex-row gap-3">
                     <button type="submit" className="bg-blue-900 hover:bg-blue-900/80 rounded-md py-3 text-white font-bold 

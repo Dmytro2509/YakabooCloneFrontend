@@ -12,7 +12,6 @@ export const UpdateWishListModal = ({ wishlist, updateWishlistTitle }) => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const handleChange = (event) => {
-        console.log(event.target.value)
         setNewTitle(event.target.value);
     } 
 
