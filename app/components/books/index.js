@@ -1,0 +1,14 @@
+export { BookMainContainer } from "./BookMainContainer";
+export { BookImages } from "./BookImages";
+export { BookDescription } from "./BookDescription"
+export { BookType } from "./BookType";
+export { BookInfoBtn } from "./BookInfoBtn";
+export { Review } from "./Review"
+export { PaginationBtn } from "./PaginationBtn";
+export { OrderInfo } from "./OrderInfo";
+export { NovaPostPromotion } from "./NovaPostPromotion";
+export { PayByParts } from "./PayByParts";
+export { Delivery365 } from "./Delivery365";
+export { DeliveryCity } from "./DeliveryCity"
+export { DeliveryMethods } from "./DeliveryMethods"
+export { PriceContainer } from "./PriceContainer"

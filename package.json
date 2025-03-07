@@ -1,0 +1,37 @@
+{
+  "name": "yakaboo-clone",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "date-fns": "^4.1.0",
+    "html-react-parser": "^5.2.2",
+    "intl-tel-input": "^25.3.0",
+    "libphonenumber-js": "^1.11.20",
+    "next": "15.1.6",
+    "phonenumbers": "^1.0.2",
+    "react": "^19.0.0",
+    "react-country-phone-input": "^1.0.2",
+    "react-dom": "^19.0.0",
+    "react-flags-select": "^2.2.3",
+    "react-hook-form": "^7.54.2",
+    "react-icons": "^5.4.0",
+    "react-phone-input-2": "^2.15.1",
+    "react-select": "^5.10.0",
+    "react-select-country-list": "^2.2.3",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.6",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1"
+  }
+}

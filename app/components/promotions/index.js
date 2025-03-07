@@ -1,0 +1,7 @@
+export { PromoMainContainer } from "./PromoMainContainer"
+export { PromoCategoriesSidebar } from "./PromoCategoriesSidebar"
+export { Promos } from "./Promos"
+export { PromoCard } from "./PromoCard"
+export { OnePromotionContainer } from "./OnePromotionContainer"
+export { PromotionsBySlugContainer } from "./PromotionsBySlugContainer"
+export { PromosBySlug } from "./PromosBySlug"
