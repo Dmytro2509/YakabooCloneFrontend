@@ -9,6 +9,7 @@ import useLoginModalStore from '@/app/stores/LoginModalState';
 import { LoginWithGoogleBtn } from '..';
 import useRegisterModalStore from '@/app/stores/RegisterModalState';
 import { Endpoints } from '@/app/endpoints';
+import { setCookie } from '@/app/utils';
 
 export const LoginModal = ({ afterClose=null }) => {
    const { setIsLoginModalOpen } = useLoginModalStore() 
@@ -55,19 +56,30 @@ export const LoginModal = ({ afterClose=null }) => {
             })
         });
 
+        console.log(response)
+
         if (!response.ok) {
             const errorData = await response.json();
             setServerError(errorData.detail || "Невідома помилка");
             throw new Error(`HTTP error! Status: ${response.status}`);
         } else {
             const result = await response.json();
-            access_token = result.access_token
-            refresh_token = result.refresh_token
-            sessionStorage.setItem("access_token", access_token)
-            sessionStorage.setItem("refresh_token", refresh_token)
+            console.log(result)
+            const access_token = result.access_token
+            const refresh_token = result.refresh_token
+            console.log(result.user)
+            setCookie("access_token", access_token, 30)
+            setCookie("refresh_token", refresh_token, 60 * 24 * 7)
+            setCookie("token_type", result.token_type)
+            setCookie("email", result.user.email)
+            setCookie("first_name", result.user.first_name)
+            setCookie("last_name", result.user.last_name)
+            setCookie("phone_number", result.user.phone_number)
             setServerError(null)
+            setIsLoginModalOpen(false)
         }
     } catch (error) {
+        console.error(error)
         setServerError("Помилка сервера");
     }
    }

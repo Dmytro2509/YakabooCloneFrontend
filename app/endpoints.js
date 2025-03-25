@@ -9,5 +9,8 @@ export const Endpoints = {
     phoneNumberVerification: "http://localhost:8003/auth/verify-sms-code",
     checkAccessToken: "http://localhost:8003/auth/jwt/verify-token",
     jwtRefreshToken: "http://localhost:8003/auth/jwt/refresh",
-    createWishlist: "http://localhost:8003/wishlists/create"
+    createWishlist: "http://localhost:8003/wishlists/create",
+    userLogout: "http://localhost:8003/auth/jwt/logout",
+    userChangePassword: "http://localhost:8003/auth/user/change-password",
+    createEmailToSub: "http://localhost:8003/subs/create"
 }

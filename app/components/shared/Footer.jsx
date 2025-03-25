@@ -1,11 +1,55 @@
-import React from 'react';
+"use client"
+
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { useForm } from "react-hook-form"
 import Image from 'next/image';
 import { ToTopBtn } from '.';
+import { Endpoints } from '@/app/endpoints';
+import { FlashMessages } from '.';
 
 export const Footer = () => {
+
+    const [isNotUniqueEmail, setIsNotUniqueEmail] = useState(false);
+    const [showFlashMessage, setShowFlashMessage] = useState(false);
+    const [message, setMessage] = useState("")
+    const {register, handleSubmit, watch, formState: { errors }} = useForm();
+
+    const sendUserEmail = async (data) => {
+        try {
+            const response = await fetch(Endpoints.createEmailToSub, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "email": data.email 
+                })
+            })
+
+            if (response.ok) {
+                const resp = await response.json();
+                setShowFlashMessage(true);
+                setIsNotUniqueEmail(false);
+                setMessage("Електронна адреса підписана успішно")
+            } else {
+                if(response.status === 409){
+                    setIsNotUniqueEmail(true);
+                    setShowFlashMessage(true);
+                    setMessage("Ця електронна адреса вже підписана")
+                }else {
+                    setShowFlashMessage(false)   
+                    setMessage("Помилка сервера") 
+                }
+            }
+        } catch(err) {
+            console.error(err);
+        }
+    }
+
   return (
-    <div className="w-full bg-white border-t border-gray-200 flex flex-col gap-3 px-[7%] py-[1.5%] text-[1rem]">
+    <div className="w-full bg-white border-t border-gray-200 flex flex-col gap-3 px-[7%] py-[1.5%] text-[1rem] absolute bottom-0">
+        { showFlashMessage && <FlashMessages message={ message } onClose={() => setShowFlashMessage(false)} /> }
         <div className="flex flex-row items-center gap-5 border-b border-gray-200 pb-5">
             <div className="flex flex-col gap-0 w-[40%]">
                 <h4 className="font-semibold text-[1.1rem]">
@@ -15,13 +59,22 @@ export const Footer = () => {
                     Інформація про новинки, книжкові добірки, секретні промокоди 
                 </p>
             </div>
-            <div className="flex flex-row items-center gap-2 w-[60%]">
-                <input type="email" className="border border-gray-200 bg-gray-100 hover:bg-white px-2 rounded-md h-[45px] w-[650px]" 
-                placeholder='Введіть  email'/>
-                <button type="submit" disabled className="rounded-md h-[45px] px-3 text-center text-white font-semibold bg-blue-800 w-[200px]">
-                    Отримувати цікавинки
-                </button>
-            </div>
+            <form className="flex flex-col items-center gap-2 w-[60%] justify-start" method="post" onSubmit={handleSubmit(sendUserEmail)}>
+                <div className="flex flex-row gap-3">
+                    <input type="email" className="border border-gray-200 bg-gray-100 hover:bg-white px-2 rounded-md h-[45px] w-[650px]" 
+                    placeholder='Введіть  email' 
+                    {...register('email', {
+                        pattern: {
+                            value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                            message: "Введіть коректну email-адресу"
+                        }
+                    })}/>
+                    <button type="submit" className="rounded-md h-[45px] px-3 text-center text-white font-semibold bg-blue-800 w-[200px]">
+                        Отримувати цікавинки
+                    </button>    
+                </div>
+                { errors.email && <div className="text-red-500 font-semibold -ml-[65%]">{ errors.email.message }</div> }
+            </form>
         </div>
         <div className="flex flex-row gap-12 py-5 border-b border-gray-200 pb-5">
             <div className="flex w-[20%] flex-col gap-8">

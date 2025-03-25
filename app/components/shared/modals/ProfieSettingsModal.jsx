@@ -28,6 +28,10 @@ export const ProfieSettingsModal = () => {
     return `${firstName} ${lastName}`
   }
 
+  const handleLinkClick = () => {
+    setIsProfileSettingsOpen(false)
+  }
+
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex w-full h-full z-20 cursor-auto">
@@ -56,7 +60,7 @@ export const ProfieSettingsModal = () => {
           </div>
           <div className="flex flex-col gap-2 border-b-4 border-gray-200 pb-4">
             <Link href="/myaccount/orders" className="px-5 flex flex-row gap-3 items-center py-2 hover:bg-gray-100 
-            transition-all duration-150 ease-in-out group">
+            transition-all duration-150 ease-in-out group" onClick={() => handleLinkClick()}>
               <button className="bg-pink-200 p-2 rounded-full text-pink-500 group-hover:bg-pink-500 group-hover:text-white 
               transition-all duration-150 ease-in">
                 <FiTruck size={20} />
@@ -64,15 +68,15 @@ export const ProfieSettingsModal = () => {
               <span className="font-semibold">Замовлення</span>
             </Link>
             <Link href="/myaccount/orders" className="px-5 flex flex-row gap-3 items-center py-2 hover:bg-gray-100 
-            transition-all duration-150 ease-in-out group">
+            transition-all duration-150 ease-in-out group" onClick={() => handleLinkClick()}>
               <button className="bg-pink-200 p-2 rounded-full text-pink-500 group-hover:bg-pink-500 group-hover:text-white 
               transition-all duration-150 ease-in">
                 <MdOutlineDone size={20} />
               </button>
               <span className="font-semibold">Моя бібліотека</span>
             </Link>
-            <Link href="/myaccount/orders" className="px-5 flex flex-row gap-3 items-center py-2 hover:bg-gray-100 
-            transition-all duration-150 ease-in-out group">
+            <Link href="/my-account/wishlist" className="px-5 flex flex-row gap-3 items-center py-2 hover:bg-gray-100 
+            transition-all duration-150 ease-in-out group" onClick={() => handleLinkClick()}>
               <button className="bg-pink-200 p-2 rounded-full text-pink-500 group-hover:bg-pink-500 group-hover:text-white 
               transition-all duration-150 ease-in">
                 <FaRegHeart size={20} />
@@ -80,15 +84,15 @@ export const ProfieSettingsModal = () => {
               <span className="font-semibold">Бажані книги</span>
             </Link>
             <Link href="/myaccount/orders" className="px-5 flex flex-row gap-3 items-center py-2 hover:bg-gray-100 
-            transition-all duration-150 ease-in-out group">
+            transition-all duration-150 ease-in-out group" onClick={() => handleLinkClick()}>
               <button className="bg-pink-200 p-2 rounded-full text-pink-500 group-hover:bg-pink-500 group-hover:text-white 
               transition-all duration-150 ease-in">
                 <TbBorderLeftPlus size={20} />
               </button>
               <span className="font-semibold">Товари в очікуванні</span>
             </Link>
-            <Link href="/myaccount/orders" className="px-5 flex flex-row gap-3 items-center py-2 hover:bg-gray-100 
-            transition-all duration-150 ease-in-out group">
+            <Link href="/my-account/bonuses" className="px-5 flex flex-row gap-3 items-center py-2 hover:bg-gray-100 
+            transition-all duration-150 ease-in-out group" onClick={() => handleLinkClick()}>
               <button className="bg-pink-200 p-2 rounded-full text-pink-500 group-hover:bg-pink-500 group-hover:text-white 
               transition-all duration-150 ease-in">
                 <TbGiftCard size={20} />
@@ -98,8 +102,8 @@ export const ProfieSettingsModal = () => {
           </div>
 
           <div className="flex flex-col gap-2 border-b-4 border-gray-200 pb-4">
-            <Link href="/myaccount/orders" className="px-5 flex flex-row gap-3 items-center py-2 hover:bg-gray-100 
-            transition-all duration-150 ease-in-out group">
+            <Link href="/my-account" className="px-5 flex flex-row gap-3 items-center py-2 hover:bg-gray-100 
+            transition-all duration-150 ease-in-out group" onClick={() => handleLinkClick()}>
               <button className="bg-pink-200 p-2 rounded-full text-pink-500 group-hover:bg-pink-500 group-hover:text-white 
               transition-all duration-150 ease-in">
                 <CiUser size={20} />
@@ -109,8 +113,8 @@ export const ProfieSettingsModal = () => {
           </div>
 
           <div className="flex flex-col gap-2 border-b-4 border-gray-200 pb-4">
-            <Link href="/myaccount/orders" className="px-5 flex flex-row gap-3 items-center py-2 hover:bg-gray-100 
-            transition-all duration-150 ease-in-out group">
+            <Link href="/my-account/logout" className="px-5 flex flex-row gap-3 items-center py-2 hover:bg-gray-100 
+            transition-all duration-150 ease-in-out group" onClick={() => handleLinkClick()}>
               <button className="bg-pink-200 p-2 rounded-full text-pink-500 group-hover:bg-pink-500 group-hover:text-white 
               transition-all duration-150 ease-in">
                 <IoMdExit size={20} />

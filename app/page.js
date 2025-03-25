@@ -1,16 +1,18 @@
 "use client"
 
-import { ContactsModal, DeliveryCityModal, ESupportModal, MainContainer, SendingCodeModal, Sidebar } from "./components";
+import { ContactsModal, DeliveryCityModal, ESupportModal, FlashMessages, MainContainer, SendingCodeModal, Sidebar } from "./components";
 import { Chat, ESupport } from "./components/buttons";
 import useChatModalStore from "./stores/ChatModalState";
 import useESupportModalStore from "./stores/ESupportModalState";
 import useDeliveryModalState from '@/app/stores/DeliveryCityModalState';
+import useRedirectAfterLogoutState from "./stores/RedirectAfterLogoutState";
 
 export default function Home() {
-  
+
   const { isSupportModalOpen, isBeenOpened } = useESupportModalStore();
   const { isDeliveryModalOpen } = useDeliveryModalState();
   const { isChatModalOpen } = useChatModalStore();
+  const { isRedirectAfterLogout, setIsRedirectAfterLogout } = useRedirectAfterLogoutState();
   
   return (
     <>
@@ -19,7 +21,9 @@ export default function Home() {
         { isDeliveryModalOpen && <DeliveryCityModal /> }
         <Chat />
         { isChatModalOpen && <ContactsModal /> }
-        { isSupportModalOpen &&  <ESupportModal /> }
+        { isRedirectAfterLogout ?? <FlashMessages message="Ви успішно вийшли з вашого облікового запису" 
+        onClose={() => setIsRedirectAfterLogout(false)}/> }
+        { isSupportModalOpen &&  <ESupportModal/> }
         <div className="flex flex-row gap-5 mt-2">
           <Sidebar />
           <MainContainer />
