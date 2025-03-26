@@ -48,7 +48,7 @@ export const Footer = () => {
     }
 
   return (
-    <div className="w-full bg-white border-t border-gray-200 flex flex-col gap-3 px-[7%] py-[1.5%] text-[1rem] absolute bottom-0">
+    <div className="w-full bg-white border-t border-gray-200 flex flex-col gap-3 px-[7%] py-[1.5%] text-[1rem]">
         { showFlashMessage && <FlashMessages message={ message } onClose={() => setShowFlashMessage(false)} /> }
         <div className="flex flex-row items-center gap-5 border-b border-gray-200 pb-5">
             <div className="flex flex-col gap-0 w-[40%]">

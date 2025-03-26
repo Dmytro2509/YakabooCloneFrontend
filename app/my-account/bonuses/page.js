@@ -1,6 +1,6 @@
 export default function BonusesPage() {
     return(
-        <div className="bg-gray-100 px-[6.5%] -mt-5 pb-10 flex h-[50vh] flex-col gap-[20px] pt-[2%]">
+        <div className="bg-gray-100 px-[6.5%] -mt-5 pb-10 flex-col gap-[20px] pt-[2%]">
             <div className="flex flex-col gap-[7px] text-left">
                 <h1 className="text-2xl font-bold">
                     Бонуси

@@ -231,7 +231,11 @@ export const UserRegisterModal = () => {
                         minLength: {
                             value: 8,
                             message: "Пароль повинен містити не менше 8 символів"
-                        }
+                        },
+                        pattern: {
+                            value: /^(?=.*\d)(?=.*[a-zA-Zа-яА-Я]).{8,}$/,
+                            message: 'Пароль має містити хоча б одну цифру і літеру',
+                        },
                     })}
                     />
                     {

@@ -31,14 +31,17 @@ export const OnePromotionContainer = ({ promoSlug }) => {
 
     const formatTimeDifference = (dateString) => {
         
-        const now = new Date();
-        const targetDate = parseISO(dateString);
-    
-        const days = Math.abs(differenceInDays(targetDate, now));
-        const hours = Math.abs(differenceInHours(targetDate, now) % 24);
-        const minutes = Math.abs(differenceInMinutes(targetDate, now) % 60);
-    
-        return `${days > 0 ? days + ' днів' : ''} ${hours > 0 ? hours + ' годин' : ''} ${minutes > 0 ? minutes + ' хвилин' : ''}`;
+        if(dateString){
+            const now = new Date();
+            const targetDate = parseISO(dateString);
+        
+            const days = Math.abs(differenceInDays(targetDate, now));
+            const hours = Math.abs(differenceInHours(targetDate, now) % 24);
+            const minutes = Math.abs(differenceInMinutes(targetDate, now) % 60);
+        
+            return `${days > 0 ? days + ' днів' : ''} ${hours > 0 ? hours + ' годин' : ''} ${minutes > 0 ? minutes + ' хвилин' : ''}`;    
+        }
+        
     }    
 
   return (

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useForm } from "react-hook-form"
 import { FlashMessages, NoneSpan } from '../shared';
 import Image from 'next/image';
-import { getCookie, setCookie, getFullName, dateFormat } from '@/app/utils';
+import { getCookie, setCookie, getFullName, dateFormat, getUniqueErrorField } from '@/app/utils';
 import { Endpoints } from '@/app/endpoints';
 
 export const MainInfoContainer = () => {
@@ -13,6 +13,7 @@ export const MainInfoContainer = () => {
   const [showFlashMessage, setShowFlashMessage] = useState(false)
   const [passwordFormError, setPasswordFormError] = useState(null)
   const [userSubscribed, setUserSubscribed] = useState(false)
+  const [uniqueError, setUniqueError] = useState({email: "", phone_number: ""})
   const [userData, setUserData] = useState({ 
     first_name: getCookie("first_name"),
     last_name: getCookie("last_name"),
@@ -157,9 +158,24 @@ export const MainInfoContainer = () => {
         })
         setShowFlashMessage(true)
         closeForm(formId)
+        setUniqueError({phone_number: "", email: ""})
       } else {
-        console.log(response)
-        console.log(body)
+        const message = await response.json()
+        const errorField = getUniqueErrorField(message.detail);
+        console.log(errorField);
+        console.log(errorField == "phone_number")
+        if(errorField === "phone_number"){
+          setUniqueError(prevState => ({
+            ...prevState,
+            phone_number: "Користувач з таким номером телефону вже зареєстрований"
+          }))
+          console.log(uniqueError)
+        } else {
+          setUniqueError(prevState => ({
+            ...prevState,
+            email: "Користувач з таким email уже зареєстрований"
+          }))
+        }
       }
     } catch(err){
       console.log(err)
@@ -252,18 +268,19 @@ export const MainInfoContainer = () => {
                     <input type="email" name="email" id="email" className="h-[45px] rounded-md bg-gray-100 
                     border border-gray-200 hover:bg-white transition-all duration-150 ease-in px-5 w-[45%]"
                     placeholder="Введіть ваш новий email" value={userData.email} onChange={(e) => updateFieldValue(e, "email")} />
-                  <div className="flex flex-row gap-3">
-                    <button type="submit" className="bg-blue-900 hover:bg-blue-900/80 rounded-md py-3 text-white font-bold 
-                    px-3 transition-all duration-150 ease-in" onClick={(e) => handleSaveChangesButton(e, 2)}>
-                      Зберегти
-                    </button>
-                    <button type="button" className="bg-gray-100 hover:bg-gray-200 rounded-md py-3 text-gray-500 font-bold 
-                    px-3 transition-all duration-150 ease-in"
-                    onClick={() => closeForm(2)}>
-                      Скасувати
-                    </button>
+                    <div className="flex flex-row gap-3">
+                      <button type="submit" className="bg-blue-900 hover:bg-blue-900/80 rounded-md py-3 text-white font-bold 
+                      px-3 transition-all duration-150 ease-in" onClick={(e) => handleSaveChangesButton(e, 2)}>
+                        Зберегти
+                      </button>
+                      <button type="button" className="bg-gray-100 hover:bg-gray-200 rounded-md py-3 text-gray-500 font-bold 
+                      px-3 transition-all duration-150 ease-in"
+                      onClick={() => closeForm(2)}>
+                        Скасувати
+                      </button>
+                    </div>
                   </div>
-                </div>
+                  { uniqueError.email && <span className="text-red-500 font-semibold">{ uniqueError.email }</span> }
               </div>  
             </form>
         </div>
@@ -309,6 +326,7 @@ export const MainInfoContainer = () => {
                     </button>
                   </div>
                 </div>
+                { uniqueError.phone_number && <span className="text-red-500 font-semibold">{ uniqueError.phone_number }</span> }
               </div>  
             </form>
           </div>
@@ -363,7 +381,7 @@ export const MainInfoContainer = () => {
                       message: "Пароль повинен містити не менше 8 символів"
                     },
                     pattern: {
-                      value: /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/,
+                      value: /^(?=.*\d)(?=.*[a-zA-Zа-яА-Я]).{8,}$/,
                       message: 'Пароль має містити хоча б одну цифру і літеру',
                     },
                   })} />

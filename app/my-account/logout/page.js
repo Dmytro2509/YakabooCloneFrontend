@@ -39,7 +39,7 @@ export default function MyAccountPage() {
                     const cookiesForDelete = [
                         "access_token", "refresh_token",
                         "token_type", "email", "phone_number", "first_name",
-                        "last_name"
+                        "last_name", "birth_date"
                     ]
                     cookiesForDelete.forEach((cookie) => {
                         deleteCookie(cookie)

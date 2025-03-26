@@ -42,7 +42,22 @@ export const getFullName = (userData = null) => {
 
 
 export const dateFormat = inputDate => {
-    const date = new Date(inputDate);
-    const formatedDate = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear()}`;
-    return formatedDate;
+    if(inputDate){
+        const date = new Date(inputDate);
+        const formatedDate = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear()}`;
+        return formatedDate;    
+    } else {
+        return ""
+    }
+    
+}
+
+export const getUniqueErrorField = errorStr => {
+    const errorField = errorStr.split(":")[1]
+    return errorField.trim();
+}
+
+export const validateEmailRegex = email => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email)
 }

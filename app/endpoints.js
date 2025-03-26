@@ -12,5 +12,6 @@ export const Endpoints = {
     createWishlist: "http://localhost:8003/wishlists/create",
     userLogout: "http://localhost:8003/auth/jwt/logout",
     userChangePassword: "http://localhost:8003/auth/user/change-password",
-    createEmailToSub: "http://localhost:8003/subs/create"
+    createEmailToSub: "http://localhost:8003/subs/create",
+    changePasswordWithEmail: "http://localhost:8003/auth/user/change-password-with-email"
 }
