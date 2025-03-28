@@ -6,3 +6,4 @@ export * from "./additional";
 export * from "./promotions";
 export * from "./checkout";
 export * from "./user"
+export * from "./publishing"
