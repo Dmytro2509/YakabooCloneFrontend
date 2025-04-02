@@ -116,10 +116,6 @@ export const LETTERSUA = [
         "letter": "Ш"
     },
     {
-        "id": 30,
-        "letter": "Ш"
-    },
-    {
         "id": 31,
         "letter": "Щ"
     },
